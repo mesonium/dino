@@ -60,38 +60,38 @@ public abstract class Column<T> {
         this.sqlite_type = type;
     }
 
-    public class Integer : Column<int> {
+    public class Integer : Column<int?> {
         public Integer(string name) {
             base(name, INTEGER);
         }
 
-        public override int get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
-            return (int) row.get_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
+        public override int? get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
+            return (int?) (int) row.get_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
         }
 
         public override bool is_null(Row row, string? table_name = DEFAULT_TABLE_NAME) {
             return !row.has_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
         }
 
-        internal override void bind(Statement stmt, int index, int value) {
+        internal override void bind(Statement stmt, int index, int? value) {
             stmt.bind_int(index, value);
         }
     }
 
-    public class Long : Column<long> {
+    public class Long : Column<long?> {
         public Long(string name) {
             base(name, INTEGER);
         }
 
-        public override long get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
-            return (long) row.get_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
+        public override long? get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
+            return (long?) row.get_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
         }
 
         public override bool is_null(Row row, string? table_name = DEFAULT_TABLE_NAME) {
             return !row.has_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name);
         }
 
-        internal override void bind(Statement stmt, int index, long value) {
+        internal override void bind(Statement stmt, int index, long? value) {
             stmt.bind_int64(index, value);
         }
     }
@@ -158,30 +158,30 @@ public abstract class Column<T> {
         }
     }
 
-    public class BoolText : Column<bool> {
+    public class BoolText : Column<bool?> {
         public BoolText(string name) {
             base(name, TEXT);
         }
 
-        public override bool get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
+        public override bool? get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
             return row.get_text(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name) == "1";
         }
 
-        internal override void bind(Statement stmt, int index, bool value) {
+        internal override void bind(Statement stmt, int index, bool? value) {
             stmt.bind_text(index, value ? "1" : "0");
         }
     }
 
-    public class BoolInt : Column<bool> {
+    public class BoolInt : Column<bool?> {
         public BoolInt(string name) {
             base(name, INTEGER);
         }
 
-        public override bool get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
+        public override bool? get(Row row, string? table_name = DEFAULT_TABLE_NAME) {
             return row.get_integer(name, table_name == DEFAULT_TABLE_NAME ? table.name : table_name) == 1;
         }
 
-        internal override void bind(Statement stmt, int index, bool value) {
+        internal override void bind(Statement stmt, int index, bool? value) {
             stmt.bind_int(index, value ? 1 : 0);
         }
     }

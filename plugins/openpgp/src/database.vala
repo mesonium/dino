@@ -9,8 +9,8 @@ public class Database : Qlite.Database {
     private const int VERSION = 0;
 
     public class AccountSetting : Table {
-        public Column<int> account_id = new Column.Integer("account_id") { primary_key = true };
-        public Column<string> key = new Column.Text("key") { not_null = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { primary_key = true };
+        public Column<string?> key = new Column.Text("key") { not_null = true };
 
         internal AccountSetting(Database db) {
             base(db, "account_setting");
@@ -19,8 +19,8 @@ public class Database : Qlite.Database {
     }
 
     public class ContactKey : Table {
-        public Column<string> jid = new Column.Text("jid") { primary_key = true };
-        public Column<string> key = new Column.Text("key") { not_null = true };
+        public Column<string?> jid = new Column.Text("jid") { primary_key = true };
+        public Column<string?> key = new Column.Text("key") { not_null = true };
 
         internal ContactKey(Database db) {
             base(db, "contact_key");

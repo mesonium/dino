@@ -9,7 +9,7 @@ public class Database {
     private Table[]? tables;
 
     private Column<string?> meta_name = new Column.Text("name") { primary_key = true };
-    private Column<long> meta_int_val = new Column.Long("int_val");
+    private Column<long?> meta_int_val = new Column.Long("int_val");
     private Column<string?> meta_text_val = new Column.Text("text_val");
     private Table meta_table;
 

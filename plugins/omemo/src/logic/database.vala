@@ -10,16 +10,16 @@ public class Database : Qlite.Database {
 
     public class IdentityMetaTable : Table {
         //Default to provide backwards compatability
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true, min_version = 2, default = "-1" };
-        public Column<string> address_name = new Column.Text("address_name") { not_null = true };
-        public Column<int> device_id = new Column.Integer("device_id") { not_null = true };
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true, min_version = 2, default = "-1" };
+        public Column<string?> address_name = new Column.Text("address_name") { not_null = true };
+        public Column<int?> device_id = new Column.Integer("device_id") { not_null = true };
         public Column<string?> identity_key_public_base64 = new Column.Text("identity_key_public_base64");
-        public Column<bool> trusted_identity = new Column.BoolInt("trusted_identity") { default = "0", max_version = 1 };
-        public Column<int> trust_level = new Column.Integer("trust_level") { default = TrustLevel.UNKNOWN.to_string(), min_version = 2 };
-        public Column<bool> now_active = new Column.BoolInt("now_active") { default = "1" };
-        public Column<long> last_active = new Column.Long("last_active");
-        public Column<long> last_message_untrusted = new Column.Long("last_message_untrusted") { min_version = 5 };
-        public Column<long> last_message_undecryptable = new Column.Long("last_message_undecryptable") { min_version = 5 };
+        public Column<bool?> trusted_identity = new Column.BoolInt("trusted_identity") { default = "0", max_version = 1 };
+        public Column<int?> trust_level = new Column.Integer("trust_level") { default = TrustLevel.UNKNOWN.to_string(), min_version = 2 };
+        public Column<bool?> now_active = new Column.BoolInt("now_active") { default = "1" };
+        public Column<long?> last_active = new Column.Long("last_active");
+        public Column<long?> last_message_untrusted = new Column.Long("last_message_untrusted") { min_version = 5 };
+        public Column<long?> last_message_undecryptable = new Column.Long("last_message_undecryptable") { min_version = 5 };
 
         internal IdentityMetaTable(Database db) {
             base(db, "identity_meta");
@@ -135,9 +135,9 @@ public class Database : Qlite.Database {
 
 
     public class TrustTable : Table {
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true };
-        public Column<string> address_name = new Column.Text("address_name");
-        public Column<bool> blind_trust = new Column.BoolInt("blind_trust") { default = "1" } ;
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true };
+        public Column<string?> address_name = new Column.Text("address_name");
+        public Column<bool?> blind_trust = new Column.BoolInt("blind_trust") { default = "1" } ;
 
         internal TrustTable(Database db) {
             base(db, "trust");
@@ -154,11 +154,11 @@ public class Database : Qlite.Database {
     }
 
     public class IdentityTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id") { unique = true, not_null = true };
-        public Column<int> device_id = new Column.Integer("device_id") { not_null = true };
-        public Column<string> identity_key_private_base64 = new Column.NonNullText("identity_key_private_base64");
-        public Column<string> identity_key_public_base64 = new Column.NonNullText("identity_key_public_base64");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { unique = true, not_null = true };
+        public Column<int?> device_id = new Column.Integer("device_id") { not_null = true };
+        public Column<string?> identity_key_private_base64 = new Column.NonNullText("identity_key_private_base64");
+        public Column<string?> identity_key_public_base64 = new Column.NonNullText("identity_key_public_base64");
 
         internal IdentityTable(Database db) {
             base(db, "identity");
@@ -174,9 +174,9 @@ public class Database : Qlite.Database {
     }
 
     public class SignedPreKeyTable : Table {
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true };
-        public Column<int> signed_pre_key_id = new Column.Integer("signed_pre_key_id") { not_null = true };
-        public Column<string> record_base64 = new Column.NonNullText("record_base64");
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true };
+        public Column<int?> signed_pre_key_id = new Column.Integer("signed_pre_key_id") { not_null = true };
+        public Column<string?> record_base64 = new Column.NonNullText("record_base64");
 
         internal SignedPreKeyTable(Database db) {
             base(db, "signed_pre_key");
@@ -187,9 +187,9 @@ public class Database : Qlite.Database {
     }
 
     public class PreKeyTable : Table {
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true };
-        public Column<int> pre_key_id = new Column.Integer("pre_key_id") { not_null = true };
-        public Column<string> record_base64 = new Column.NonNullText("record_base64");
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true };
+        public Column<int?> pre_key_id = new Column.Integer("pre_key_id") { not_null = true };
+        public Column<string?> record_base64 = new Column.NonNullText("record_base64");
 
         internal PreKeyTable(Database db) {
             base(db, "pre_key");
@@ -200,10 +200,10 @@ public class Database : Qlite.Database {
     }
 
     public class SessionTable : Table {
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true };
-        public Column<string> address_name = new Column.NonNullText("name");
-        public Column<int> device_id = new Column.Integer("device_id") { not_null = true };
-        public Column<string> record_base64 = new Column.NonNullText("record_base64");
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true };
+        public Column<string?> address_name = new Column.NonNullText("name");
+        public Column<int?> device_id = new Column.Integer("device_id") { not_null = true };
+        public Column<string?> record_base64 = new Column.NonNullText("record_base64");
 
         internal SessionTable(Database db) {
             base(db, "session");
@@ -214,11 +214,11 @@ public class Database : Qlite.Database {
     }
 
     public class ContentItemMetaTable : Table {
-        public Column<int> content_item_id = new Column.Integer("message_id") { primary_key = true };
-        public Column<int> identity_id = new Column.Integer("identity_id") { not_null = true };
-        public Column<string> address_name = new Column.Text("address_name") { not_null = true };
-        public Column<int> device_id = new Column.Integer("device_id") { not_null = true };
-        public Column<bool> trusted_when_received = new Column.BoolInt("trusted_when_received") { not_null = true, default = "1" };
+        public Column<int?> content_item_id = new Column.Integer("message_id") { primary_key = true };
+        public Column<int?> identity_id = new Column.Integer("identity_id") { not_null = true };
+        public Column<string?> address_name = new Column.Text("address_name") { not_null = true };
+        public Column<int?> device_id = new Column.Integer("device_id") { not_null = true };
+        public Column<bool?> trusted_when_received = new Column.BoolInt("trusted_when_received") { not_null = true, default = "1" };
 
         internal ContentItemMetaTable(Database db) {
             base(db, "content_item_meta");

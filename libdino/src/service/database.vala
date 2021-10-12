@@ -10,14 +10,14 @@ public class Database : Qlite.Database {
     private const int VERSION = 21;
 
     public class AccountTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<string> bare_jid = new Column.Text("bare_jid") { unique = true, not_null = true };
-        public Column<string> resourcepart = new Column.Text("resourcepart");
-        public Column<string> password = new Column.Text("password");
-        public Column<string> alias = new Column.Text("alias");
-        public Column<bool> enabled = new Column.BoolInt("enabled");
-        public Column<string> roster_version = new Column.Text("roster_version") { min_version=2 };
-        public Column<long> mam_earliest_synced = new Column.Long("mam_earliest_synced") { min_version=4 };
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<string?> bare_jid = new Column.Text("bare_jid") { unique = true, not_null = true };
+        public Column<string?> resourcepart = new Column.Text("resourcepart");
+        public Column<string?> password = new Column.Text("password");
+        public Column<string?> alias = new Column.Text("alias");
+        public Column<bool?> enabled = new Column.BoolInt("enabled");
+        public Column<string?> roster_version = new Column.Text("roster_version") { min_version=2 };
+        public Column<long?> mam_earliest_synced = new Column.Long("mam_earliest_synced") { min_version=4 };
 
         internal AccountTable(Database db) {
             base(db, "account");
@@ -26,8 +26,8 @@ public class Database : Qlite.Database {
     }
 
     public class JidTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<string> bare_jid = new Column.Text("bare_jid") { unique = true, not_null = true };
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<string?> bare_jid = new Column.Text("bare_jid") { unique = true, not_null = true };
 
         internal JidTable(Database db) {
             base(db, "jid");
@@ -36,12 +36,12 @@ public class Database : Qlite.Database {
     }
 
     public class EntityTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id");
-        public Column<int> jid_id = new Column.Integer("jid_id");
-        public Column<string> resource = new Column.Text("resource");
-        public Column<string> caps_hash = new Column.Text("caps_hash");
-        public Column<long> last_seen = new Column.Long("last_seen");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id");
+        public Column<int?> jid_id = new Column.Integer("jid_id");
+        public Column<string?> resource = new Column.Text("resource");
+        public Column<string?> caps_hash = new Column.Text("caps_hash");
+        public Column<long?> last_seen = new Column.Long("last_seen");
 
         internal EntityTable(Database db) {
             base(db, "entity");
@@ -51,13 +51,13 @@ public class Database : Qlite.Database {
     }
 
     public class ContentItemTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> conversation_id = new Column.Integer("conversation_id") { not_null = true };
-        public Column<long> time = new Column.Long("time") { not_null = true };
-        public Column<long> local_time = new Column.Long("local_time") { not_null = true };
-        public Column<int> content_type = new Column.Integer("content_type") { not_null = true };
-        public Column<int> foreign_id = new Column.Integer("foreign_id") { not_null = true };
-        public Column<bool> hide = new Column.BoolInt("hide") { default = "0", not_null = true, min_version = 9 };
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> conversation_id = new Column.Integer("conversation_id") { not_null = true };
+        public Column<long?> time = new Column.Long("time") { not_null = true };
+        public Column<long?> local_time = new Column.Long("local_time") { not_null = true };
+        public Column<int?> content_type = new Column.Integer("content_type") { not_null = true };
+        public Column<int?> foreign_id = new Column.Integer("foreign_id") { not_null = true };
+        public Column<bool?> hide = new Column.BoolInt("hide") { default = "0", not_null = true, min_version = 9 };
 
         internal ContentItemTable(Database db) {
             base(db, "content_item");
@@ -68,20 +68,20 @@ public class Database : Qlite.Database {
     }
 
     public class MessageTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<string> stanza_id = new Column.Text("stanza_id");
-        public Column<string> server_id = new Column.Text("server_id") { min_version=10 };
-        public Column<int> account_id = new Column.Integer("account_id") { not_null = true };
-        public Column<int> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
-        public Column<string> counterpart_resource = new Column.Text("counterpart_resource");
-        public Column<string> our_resource = new Column.Text("our_resource");
-        public Column<bool> direction = new Column.BoolInt("direction") { not_null = true };
-        public Column<int> type_ = new Column.Integer("type");
-        public Column<long> time = new Column.Long("time");
-        public Column<long> local_time = new Column.Long("local_time");
-        public Column<string> body = new Column.Text("body");
-        public Column<int> encryption = new Column.Integer("encryption");
-        public Column<int> marked = new Column.Integer("marked");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<string?> stanza_id = new Column.Text("stanza_id");
+        public Column<string?> server_id = new Column.Text("server_id") { min_version=10 };
+        public Column<int?> account_id = new Column.Integer("account_id") { not_null = true };
+        public Column<int?> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
+        public Column<string?> counterpart_resource = new Column.Text("counterpart_resource");
+        public Column<string?> our_resource = new Column.Text("our_resource");
+        public Column<bool?> direction = new Column.BoolInt("direction") { not_null = true };
+        public Column<int?> type_ = new Column.Integer("type");
+        public Column<long?> time = new Column.Long("time");
+        public Column<long?> local_time = new Column.Long("local_time");
+        public Column<string?> body = new Column.Text("body");
+        public Column<int?> encryption = new Column.Integer("encryption");
+        public Column<int?> marked = new Column.Integer("marked");
 
         internal MessageTable(Database db) {
             base(db, "message");
@@ -98,9 +98,9 @@ public class Database : Qlite.Database {
     }
 
     public class MessageCorrectionTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> message_id = new Column.Integer("message_id") { unique=true };
-        public Column<string> to_stanza_id = new Column.Text("to_stanza_id");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> message_id = new Column.Integer("message_id") { unique=true };
+        public Column<string?> to_stanza_id = new Column.Text("to_stanza_id");
 
         internal MessageCorrectionTable(Database db) {
             base(db, "message_correction");
@@ -110,8 +110,8 @@ public class Database : Qlite.Database {
     }
 
     public class RealJidTable : Table {
-        public Column<int> message_id = new Column.Integer("message_id") { primary_key = true };
-        public Column<string> real_jid = new Column.Text("real_jid");
+        public Column<int?> message_id = new Column.Integer("message_id") { primary_key = true };
+        public Column<string?> real_jid = new Column.Text("real_jid");
 
         internal RealJidTable(Database db) {
             base(db, "real_jid");
@@ -120,9 +120,9 @@ public class Database : Qlite.Database {
     }
 
     public class UndecryptedTable : Table {
-        public Column<int> message_id = new Column.Integer("message_id");
-        public Column<int> type_ = new Column.Integer("type");
-        public Column<string> data = new Column.Text("data");
+        public Column<int?> message_id = new Column.Integer("message_id");
+        public Column<int?> type_ = new Column.Integer("type");
+        public Column<string?> data = new Column.Text("data");
 
         internal UndecryptedTable(Database db) {
             base(db, "undecrypted");
@@ -131,22 +131,22 @@ public class Database : Qlite.Database {
     }
 
     public class FileTransferTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id") { not_null = true };
-        public Column<int> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
-        public Column<string> counterpart_resource = new Column.Text("counterpart_resource");
-        public Column<string> our_resource = new Column.Text("our_resource");
-        public Column<bool> direction = new Column.BoolInt("direction") { not_null = true };
-        public Column<long> time = new Column.Long("time");
-        public Column<long> local_time = new Column.Long("local_time");
-        public Column<int> encryption = new Column.Integer("encryption");
-        public Column<string> file_name = new Column.Text("file_name");
-        public Column<string> path = new Column.Text("path");
-        public Column<string> mime_type = new Column.Text("mime_type");
-        public Column<int> size = new Column.Integer("size");
-        public Column<int> state = new Column.Integer("state");
-        public Column<int> provider = new Column.Integer("provider");
-        public Column<string> info = new Column.Text("info");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { not_null = true };
+        public Column<int?> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
+        public Column<string?> counterpart_resource = new Column.Text("counterpart_resource");
+        public Column<string?> our_resource = new Column.Text("our_resource");
+        public Column<bool?> direction = new Column.BoolInt("direction") { not_null = true };
+        public Column<long?> time = new Column.Long("time");
+        public Column<long?> local_time = new Column.Long("local_time");
+        public Column<int?> encryption = new Column.Integer("encryption");
+        public Column<string?> file_name = new Column.Text("file_name");
+        public Column<string?> path = new Column.Text("path");
+        public Column<string?> mime_type = new Column.Text("mime_type");
+        public Column<int?> size = new Column.Integer("size");
+        public Column<int?> state = new Column.Integer("state");
+        public Column<int?> provider = new Column.Integer("provider");
+        public Column<string?> info = new Column.Text("info");
 
         internal FileTransferTable(Database db) {
             base(db, "file_transfer");
@@ -156,17 +156,17 @@ public class Database : Qlite.Database {
     }
 
     public class CallTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id") { not_null = true };
-        public Column<int> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
-        public Column<string> counterpart_resource = new Column.Text("counterpart_resource");
-        public Column<string> our_resource = new Column.Text("our_resource");
-        public Column<bool> direction = new Column.BoolInt("direction") { not_null = true };
-        public Column<long> time = new Column.Long("time") { not_null = true };
-        public Column<long> local_time = new Column.Long("local_time") { not_null = true };
-        public Column<long> end_time = new Column.Long("end_time");
-        public Column<int> encryption = new Column.Integer("encryption") { min_version=21 };
-        public Column<int> state = new Column.Integer("state");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { not_null = true };
+        public Column<int?> counterpart_id = new Column.Integer("counterpart_id") { not_null = true };
+        public Column<string?> counterpart_resource = new Column.Text("counterpart_resource");
+        public Column<string?> our_resource = new Column.Text("our_resource");
+        public Column<bool?> direction = new Column.BoolInt("direction") { not_null = true };
+        public Column<long?> time = new Column.Long("time") { not_null = true };
+        public Column<long?> local_time = new Column.Long("local_time") { not_null = true };
+        public Column<long?> end_time = new Column.Long("end_time");
+        public Column<int?> encryption = new Column.Integer("encryption") { min_version=21 };
+        public Column<int?> state = new Column.Integer("state");
 
         internal CallTable(Database db) {
             base(db, "call");
@@ -175,19 +175,19 @@ public class Database : Qlite.Database {
     }
 
     public class ConversationTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id") { not_null = true };
-        public Column<int> jid_id = new Column.Integer("jid_id") { not_null = true };
-        public Column<string> resource = new Column.Text("resource") { min_version=1 };
-        public Column<bool> active = new Column.BoolInt("active");
-        public Column<long> last_active = new Column.Long("last_active");
-        public Column<int> type_ = new Column.Integer("type");
-        public Column<int> encryption = new Column.Integer("encryption");
-        public Column<int> read_up_to = new Column.Integer("read_up_to");
-        public Column<int> read_up_to_item = new Column.Integer("read_up_to_item") { not_null=true, default="-1", min_version=15 };
-        public Column<int> notification = new Column.Integer("notification") { min_version=3 };
-        public Column<int> send_typing = new Column.Integer("send_typing") { min_version=3 };
-        public Column<int> send_marker = new Column.Integer("send_marker") { min_version=3 };
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { not_null = true };
+        public Column<int?> jid_id = new Column.Integer("jid_id") { not_null = true };
+        public Column<string?> resource = new Column.Text("resource") { min_version=1 };
+        public Column<bool?> active = new Column.BoolInt("active");
+        public Column<long?> last_active = new Column.Long("last_active");
+        public Column<int?> type_ = new Column.Integer("type");
+        public Column<int?> encryption = new Column.Integer("encryption");
+        public Column<int?> read_up_to = new Column.Integer("read_up_to");
+        public Column<int?> read_up_to_item = new Column.Integer("read_up_to_item") { not_null=true, default="-1", min_version=15 };
+        public Column<int?> notification = new Column.Integer("notification") { min_version=3 };
+        public Column<int?> send_typing = new Column.Integer("send_typing") { min_version=3 };
+        public Column<int?> send_marker = new Column.Integer("send_marker") { min_version=3 };
 
         internal ConversationTable(Database db) {
             base(db, "conversation");
@@ -196,10 +196,10 @@ public class Database : Qlite.Database {
     }
 
     public class AvatarTable : Table {
-        public Column<int> jid_id = new Column.Integer("jid_id");
-        public Column<int> account_id = new Column.Integer("account_id");
-        public Column<string> hash = new Column.Text("hash");
-        public Column<int> type_ = new Column.Integer("type");
+        public Column<int?> jid_id = new Column.Integer("jid_id");
+        public Column<int?> account_id = new Column.Integer("account_id");
+        public Column<string?> hash = new Column.Text("hash");
+        public Column<int?> type_ = new Column.Integer("type");
 
         internal AvatarTable(Database db) {
             base(db, "contact_avatar");
@@ -209,10 +209,10 @@ public class Database : Qlite.Database {
     }
 
     public class EntityIdentityTable : Table {
-        public Column<string> entity = new Column.Text("entity");
-        public Column<string> category = new Column.Text("category");
-        public Column<string> type = new Column.Text("type");
-        public Column<string> entity_name = new Column.Text("name");
+        public Column<string?> entity = new Column.Text("entity");
+        public Column<string?> category = new Column.Text("category");
+        public Column<string?> type = new Column.Text("type");
+        public Column<string?> entity_name = new Column.Text("name");
 
         internal EntityIdentityTable(Database db) {
             base(db, "entity_identity");
@@ -223,8 +223,8 @@ public class Database : Qlite.Database {
     }
 
     public class EntityFeatureTable : Table {
-        public Column<string> entity = new Column.Text("entity");
-        public Column<string> feature = new Column.Text("feature");
+        public Column<string?> entity = new Column.Text("entity");
+        public Column<string?> feature = new Column.Text("feature");
 
         internal EntityFeatureTable(Database db) {
             base(db, "entity_feature");
@@ -235,10 +235,10 @@ public class Database : Qlite.Database {
     }
 
     public class RosterTable : Table {
-        public Column<int> account_id = new Column.Integer("account_id");
-        public Column<string> jid = new Column.Text("jid");
-        public Column<string> handle = new Column.Text("name");
-        public Column<string> subscription = new Column.Text("subscription");
+        public Column<int?> account_id = new Column.Integer("account_id");
+        public Column<string?> jid = new Column.Text("jid");
+        public Column<string?> handle = new Column.Text("name");
+        public Column<string?> subscription = new Column.Text("subscription");
 
         internal RosterTable(Database db) {
             base(db, "roster");
@@ -248,13 +248,13 @@ public class Database : Qlite.Database {
     }
 
     public class MamCatchupTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> account_id = new Column.Integer("account_id") { not_null = true };
-        public Column<bool> from_end = new Column.BoolInt("from_end");
-        public Column<string> from_id = new Column.Text("from_id");
-        public Column<long> from_time = new Column.Long("from_time") { not_null = true };
-        public Column<string> to_id = new Column.Text("to_id");
-        public Column<long> to_time = new Column.Long("to_time") { not_null = true };
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> account_id = new Column.Integer("account_id") { not_null = true };
+        public Column<bool?> from_end = new Column.BoolInt("from_end");
+        public Column<string?> from_id = new Column.Text("from_id");
+        public Column<long?> from_time = new Column.Long("from_time") { not_null = true };
+        public Column<string?> to_id = new Column.Text("to_id");
+        public Column<long?> to_time = new Column.Long("to_time") { not_null = true };
 
         internal MamCatchupTable(Database db) {
             base(db, "mam_catchup");
@@ -263,9 +263,9 @@ public class Database : Qlite.Database {
     }
 
     public class SettingsTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<string> key = new Column.Text("key") { unique = true, not_null = true };
-        public Column<string> value = new Column.Text("value");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<string?> key = new Column.Text("key") { unique = true, not_null = true };
+        public Column<string?> value = new Column.Text("value");
 
         internal SettingsTable(Database db) {
             base(db, "settings");
@@ -274,10 +274,10 @@ public class Database : Qlite.Database {
     }
 
     public class ConversationSettingsTable : Table {
-        public Column<int> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
-        public Column<int> conversation_id = new Column.Integer("conversation_id") {not_null=true};
-        public Column<string> key = new Column.Text("key") { not_null=true };
-        public Column<string> value = new Column.Text("value");
+        public Column<int?> id = new Column.Integer("id") { primary_key = true, auto_increment = true };
+        public Column<int?> conversation_id = new Column.Integer("conversation_id") {not_null=true};
+        public Column<string?> key = new Column.Text("key") { not_null=true };
+        public Column<string?> value = new Column.Text("value");
 
         internal ConversationSettingsTable(Database db) {
             base(db, "conversation_settings");
